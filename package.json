@@ -2,7 +2,7 @@
   "name": "mabetjs",
   "version": "1.0.0",
   "description": "Web application framework.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "push": "npm run compile & git add . & git commit -m \"Save\" & git push",
     "compile": "npm run clean & tsc -p .",
