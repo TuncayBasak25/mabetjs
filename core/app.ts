@@ -20,3 +20,5 @@ export default class App {
         this.server.listen(this.PORT, () => console.log("Listening on port " + this.PORT));
     }
 }
+
+export { App };

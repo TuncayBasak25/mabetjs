@@ -11,4 +11,5 @@ export default abstract class Controller {
     set res(res: Response);
     set next(next: NextFunction);
 }
+export { Controller };
 //# sourceMappingURL=controller.d.ts.map

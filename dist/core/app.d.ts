@@ -7,4 +7,5 @@ export default class App {
     constructor(sourceFolderPath: string);
     start(): void;
 }
+export { App };
 //# sourceMappingURL=app.d.ts.map

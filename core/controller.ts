@@ -42,3 +42,5 @@ export default abstract class Controller {
         this.$next = next;
     }
 }
+
+export { Controller }

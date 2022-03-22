@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Controller = void 0;
 const express_1 = require("express");
 class Controller {
     constructor() {
@@ -34,3 +35,4 @@ class Controller {
     }
 }
 exports.default = Controller;
+exports.Controller = Controller;
