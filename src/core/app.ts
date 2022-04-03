@@ -15,7 +15,7 @@ export class App {
         
         this.folder = new Folder(this.sourceFolderPath);
         this.module = new Module(this.folder);
-        this.server.use('/', this.module.controller.router);
+        this.server.use('/', this.module.ControllerClass.router);
     }
 
     public start(): void {

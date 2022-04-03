@@ -1,6 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
 export declare abstract class Controller {
-    readonly router: Router;
+    static readonly router: Router;
+    private $req?;
+    private $res?;
+    private $next?;
+    get req(): Request;
+    get res(): Response;
+    get next(): NextFunction;
+    set req(req: Request);
+    set res(res: Response);
+    set next(next: NextFunction);
 }
-export { Request, Response, NextFunction, };
 //# sourceMappingURL=controller.d.ts.map

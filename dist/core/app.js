@@ -15,7 +15,7 @@ class App {
         console.log(process.cwd(), this.sourceFolderPath);
         this.folder = new explorer_1.Folder(this.sourceFolderPath);
         this.module = new module_1.default(this.folder);
-        this.server.use('/', this.module.controller.router);
+        this.server.use('/', this.module.ControllerClass.router);
     }
     start() {
         this.server.listen(this.PORT, () => console.log("Listening on port " + this.PORT));

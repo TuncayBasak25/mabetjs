@@ -12,7 +12,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Delete = exports.Put = exports.Patch = exports.Post = exports.Get = exports.All = void 0;
 __exportStar(require("./core/app"), exports);
-__exportStar(require("./core/handler"), exports);
 __exportStar(require("./core/controller"), exports);
 var routing_1 = require("./core/routing");
 Object.defineProperty(exports, "All", { enumerable: true, get: function () { return routing_1.All; } });

@@ -1,28 +1,24 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { Folder, File } from "explorer";
 
 import { Controller } from "./controller";
 import { controllerRoutingRepositoryMap } from "./routing";
-import { Handler } from "./handler";
 
 
 export default class Module {
-    public readonly controller: Controller;
+    public readonly ControllerClass: any;
     public readonly moduleList: Module[] = [];
     public readonly serviceList: any[] = [];
 
     public constructor(public readonly folder: Folder) {
         this.importModules();
 
-        this.importServices();
+        this.ControllerClass = this.folder.findFile({ basename: { end: ".controller.js"} })?.require();
 
-        const ControllerClass = this.folder.findFile({ basename: { end: ".controller.js"} })?.require();
-
-        if (!ControllerClass) {
+        if (!this.ControllerClass) {
             throw new Error("Every module has to include a controller.");
         }
 
-        this.controller = new ControllerClass(...this.serviceList);
 
         this.setupRouting();
 
@@ -41,31 +37,21 @@ export default class Module {
         }
     }
 
-    private importServices(): void {
-        const servicesFolder = this.folder.findFolder({ name: "services" });
-
-        if (!servicesFolder) {
-            return;
-        }
-
-        for (let serviceModule of servicesFolder.contentList) {
-            if (serviceModule instanceof Folder || serviceModule.extension === ".js") {
-                const Service = serviceModule.require();
-
-                this.serviceList.push(new Service());
-            }
-        }
-    }
-
     private setupRouting(): void {
-        const repository = controllerRoutingRepositoryMap.get(this.controller.constructor);
+        const repository = controllerRoutingRepositoryMap.get(this.ControllerClass);
 
         for (let path in repository) {
             for (let method in repository[path]) {
                 for (let handlerName of repository[path][method]) {
-                    (this.controller.router as any)[method](path, (req: Request, res: Response, next: NextFunction) => {
+                    (this.ControllerClass.router as any)[method](path, (req: Request, res: Response, next: NextFunction) => {
 
-                        (this.controller as any)[handlerName](new Handler(req, res, next));
+                        const controller = new this.ControllerClass();
+
+                        controller.req = req;
+                        controller.res = res;
+                        controller.next = next;
+
+                        (controller as any)[handlerName]();
     
                     });
                 }
@@ -75,7 +61,7 @@ export default class Module {
 
     private setupSubmodulesRouting(): void {
         for (let module of this.moduleList) {
-            this.controller.router.use('/' + module.folder.name, module.controller.router);
+            this.ControllerClass.router.use('/' + module.folder.name, module.ControllerClass.router);
         }
     }
 }
