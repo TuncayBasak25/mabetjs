@@ -1,4 +1,4 @@
-export default class App {
+export declare class App {
     private readonly sourceFolderPath;
     private readonly server;
     private readonly PORT;
@@ -7,5 +7,4 @@ export default class App {
     constructor(sourceFolderPath: string);
     start(): void;
 }
-export { App };
 //# sourceMappingURL=app.d.ts.map
