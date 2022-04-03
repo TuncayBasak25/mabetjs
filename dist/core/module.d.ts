@@ -1,5 +1,5 @@
 import { Folder } from "explorer";
-import Controller from "./controller";
+import { Controller } from "./controller";
 export default class Module {
     readonly folder: Folder;
     readonly controller: Controller;

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 
 
-export default abstract class Controller {
+export abstract class Controller {
     public readonly router: Router = Router();
-    
+
 }

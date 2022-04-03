@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Folder } from "explorer";
 
-import Controller from "./controller";
+import { Controller } from "./controller";
 import { controllerRoutingRepositoryMap } from "./routing";
 
 
