@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const explorer_1 = require("explorer");
 const routing_1 = require("./routing");
 const handler_1 = require("./handler");
 class Module {
@@ -10,7 +11,7 @@ class Module {
         this.serviceList = [];
         this.importModules();
         this.importServices();
-        const ControllerClass = (_a = this.folder.findFile({ basename: { include: ".controller.js" } })) === null || _a === void 0 ? void 0 : _a.require();
+        const ControllerClass = (_a = this.folder.findFile({ basename: { end: ".controller.js" } })) === null || _a === void 0 ? void 0 : _a.require();
         if (!ControllerClass) {
             throw new Error("Every module has to include a controller.");
         }
@@ -33,6 +34,9 @@ class Module {
             return;
         }
         for (let serviceModule of servicesFolder.contentList) {
+            if (serviceModule instanceof explorer_1.File && serviceModule.extension !== ".js") {
+                return;
+            }
             const Service = serviceModule.require();
             this.serviceList.push(new Service());
         }

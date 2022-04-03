@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Folder } from "explorer";
+import { Folder, File } from "explorer";
 
 import { Controller } from "./controller";
 import { controllerRoutingRepositoryMap } from "./routing";
@@ -16,7 +16,7 @@ export default class Module {
 
         this.importServices();
 
-        const ControllerClass = this.folder.findFile({ basename: { include: ".controller.js"} })?.require();
+        const ControllerClass = this.folder.findFile({ basename: { end: ".controller.js"} })?.require();
 
         if (!ControllerClass) {
             throw new Error("Every module has to include a controller.");
@@ -49,6 +49,10 @@ export default class Module {
         }
 
         for (let serviceModule of servicesFolder.contentList) {
+            if (serviceModule instanceof File && serviceModule.extension !== ".js") {
+                return;
+            }
+
             const Service = serviceModule.require();
 
             this.serviceList.push(new Service());
