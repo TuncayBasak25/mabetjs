@@ -16,7 +16,7 @@ export default class Module {
 
         this.importServices();
 
-        const ControllerClass = this.folder.findFile({ basename: { include: ".controller."} })?.require();
+        const ControllerClass = this.folder.findFile({ basename: { include: ".controller.js"} })?.require();
 
         if (!ControllerClass) {
             throw new Error("Every module has to include a controller.");

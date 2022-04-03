@@ -10,7 +10,7 @@ class Module {
         this.serviceList = [];
         this.importModules();
         this.importServices();
-        const ControllerClass = (_a = this.folder.findFile({ basename: { include: ".controller." } })) === null || _a === void 0 ? void 0 : _a.require();
+        const ControllerClass = (_a = this.folder.findFile({ basename: { include: ".controller.js" } })) === null || _a === void 0 ? void 0 : _a.require();
         if (!ControllerClass) {
             throw new Error("Every module has to include a controller.");
         }
