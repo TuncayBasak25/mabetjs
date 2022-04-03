@@ -1,13 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_1 = require("./routing");
-class HandlerParameters {
-    constructor(req, res, next) {
-        this.req = req;
-        this.res = res;
-        this.next = next;
-    }
-}
+const handler_1 = require("./handler");
 class Module {
     constructor(folder) {
         var _a;
@@ -49,7 +43,7 @@ class Module {
             for (let method in repository[path]) {
                 for (let handlerName of repository[path][method]) {
                     this.controller.router[method](path, (req, res, next) => {
-                        this.controller[handlerName](new HandlerParameters(req, res, next));
+                        this.controller[handlerName](new handler_1.Handler(req, res, next));
                     });
                 }
             }

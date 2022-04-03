@@ -1,4 +1,5 @@
 export * from "./core/app";
+export * from "./core/handler";
 export * from "./core/controller";
 export { All, Get, Post, Patch, Put, Delete } from './core/routing';
 //# sourceMappingURL=index.d.ts.map

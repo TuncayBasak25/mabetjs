@@ -3,14 +3,8 @@ import { Folder } from "explorer";
 
 import { Controller } from "./controller";
 import { controllerRoutingRepositoryMap } from "./routing";
+import { Handler } from "./handler";
 
-class HandlerParameters {
-    public constructor(
-        public readonly req: Request,
-        public readonly res: Response,
-        public readonly next: NextFunction
-    ) {}
-}
 
 export default class Module {
     public readonly controller: Controller;
@@ -69,7 +63,7 @@ export default class Module {
                 for (let handlerName of repository[path][method]) {
                     (this.controller.router as any)[method](path, (req: Request, res: Response, next: NextFunction) => {
 
-                        (this.controller as any)[handlerName](new HandlerParameters(req, res, next));
+                        (this.controller as any)[handlerName](new Handler(req, res, next));
     
                     });
                 }
