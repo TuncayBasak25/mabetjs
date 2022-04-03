@@ -12,7 +12,6 @@ class App {
         this.sourceFolderPath = sourceFolderPath;
         this.server = (0, express_1.default)();
         this.PORT = process.env.PORT || "3000";
-        console.log(process.cwd(), this.sourceFolderPath);
         this.folder = new explorer_1.Folder(this.sourceFolderPath);
         this.module = new module_1.default(this.folder);
         this.server.use('/', this.module.ControllerClass.router);

@@ -30,11 +30,13 @@ class Module {
             for (let method in repository[path]) {
                 for (let handlerName of repository[path][method]) {
                     this.ControllerClass.router[method](path, (req, res, next) => {
-                        const controller = new this.ControllerClass();
-                        controller.req = req;
-                        controller.res = res;
-                        controller.next = next;
-                        controller[handlerName]();
+                        if (!("controller" in req)) {
+                            Object.defineProperty(req, "controller", { value: new this.ControllerClass() });
+                            req.controller.req = req;
+                            req.controller.res = res;
+                            req.controller.next = next;
+                        }
+                        req.controller[handlerName]();
                     });
                 }
             }

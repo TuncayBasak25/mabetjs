@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Folder, File } from "explorer";
-
-import { Controller } from "./controller";
 import { controllerRoutingRepositoryMap } from "./routing";
 
 
@@ -44,14 +42,16 @@ export default class Module {
             for (let method in repository[path]) {
                 for (let handlerName of repository[path][method]) {
                     (this.ControllerClass.router as any)[method](path, (req: Request, res: Response, next: NextFunction) => {
+    
+                        if (!("controller" in req)) {
+                            Object.defineProperty(req, "controller", { value: new this.ControllerClass() });
 
-                        const controller = new this.ControllerClass();
+                            (req as any).controller.req = req;
+                            (req as any).controller.res = res;
+                            (req as any).controller.next = next;
+                        }
 
-                        controller.req = req;
-                        controller.res = res;
-                        controller.next = next;
-
-                        (controller as any)[handlerName]();
+                        (req as any).controller[handlerName]();
     
                     });
                 }

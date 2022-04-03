@@ -10,9 +10,7 @@ export class App {
     private readonly folder: Folder;
     private readonly module: Module;
 
-    public constructor(private readonly sourceFolderPath: string) {
-        console.log(process.cwd(), this.sourceFolderPath);
-        
+    public constructor(private readonly sourceFolderPath: string) {        
         this.folder = new Folder(this.sourceFolderPath);
         this.module = new Module(this.folder);
         this.server.use('/', this.module.ControllerClass.router);
