@@ -34,7 +34,7 @@ class Module {
             return;
         }
         for (let serviceModule of servicesFolder.contentList) {
-            if (serviceModule instanceof explorer_1.Folder || serviceModule.extension !== ".js") {
+            if (serviceModule instanceof explorer_1.Folder || serviceModule.extension === ".js") {
                 const Service = serviceModule.require();
                 this.serviceList.push(new Service());
             }
