@@ -34,11 +34,10 @@ class Module {
             return;
         }
         for (let serviceModule of servicesFolder.contentList) {
-            if (serviceModule instanceof explorer_1.File && serviceModule.extension !== ".js") {
-                return;
+            if (serviceModule instanceof explorer_1.Folder || serviceModule.extension !== ".js") {
+                const Service = serviceModule.require();
+                this.serviceList.push(new Service());
             }
-            const Service = serviceModule.require();
-            this.serviceList.push(new Service());
         }
     }
     setupRouting() {
